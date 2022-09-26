@@ -10,4 +10,10 @@ interface NewsApi {
     @GET("top-headlines")
     suspend fun getTopHeadlinesByCountry(@Query("country") countryCode: String): Response<NewsResponse>
 
+    @GET("top-headlines")
+    suspend fun getTopHeadlinesByCategory(
+        @Query("country") countryCode: String,
+        @Query("category") category: String
+    ): Response<NewsResponse>
+
 }

@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.daylantern.tengokberita.R
 import com.daylantern.tengokberita.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +29,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         setSupportActionBar(binding.toolbar)
+        binding.toolbar.title = "Tengok Berita"
         setupNavigation()
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        binding.bottomNav.setupWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.bookmarkFragment, R.id.settingsFragment))
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.homeFragment -> {
+                navController.navigate(R.id.homeFragment)
+                true
+            }
+            R.id.bookmarkFragment -> {
+                navController.navigate(R.id.bookmarkFragment)
+                true
+            }
+            R.id.settingsFragment -> {
+                navController.navigate(R.id.settingsFragment)
+                true
+            }
+            else -> false
+        }
     }
 
     private fun setupNavigation() {

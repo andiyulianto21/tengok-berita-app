@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.daylantern.tengokberita.ui.fragments.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -17,6 +16,22 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.daylantern.tengokberita.ui.fragments.SearchFragment"
-        android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.daylantern.tengokberita.BookmarkFragment"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.daylantern.tengokberita.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/articleSelectedFragment"
+        android:name="com.daylantern.tengokberita.ArticleSelectedFragment"
+        tools:layout="@layout/fragment_article_selected">
+        <argument
+            android:name="article_selected"
+            app:argType="com.daylantern.tengokberita.network.Article" />
+    </fragment>
+    <action android:id="@+id/action_global_articleSelectedFragment" app:destination="@id/articleSelectedFragment" />
 </navigation>

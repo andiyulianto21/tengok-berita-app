@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.daylantern.tengokberita.Constants
 import com.daylantern.tengokberita.R
-import com.daylantern.tengokberita.adapters.RvAdapterHome
 import com.daylantern.tengokberita.databinding.FragmentHomeBinding
+import com.daylantern.tengokberita.adapters.RvAdapterHome
 import com.daylantern.tengokberita.network.Article
 import com.daylantern.tengokberita.viewmodels.HomeViewModel
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,11 +39,31 @@ class HomeFragment : Fragment(), RvAdapterHome.Listener {
 
         homeAdapter = RvAdapterHome()
         setupRv()
-        getArticles()
+        setupChipGroup()
+        getArticles(Constants.CHIP_TOP_HEADLINES)
     }
 
-    private fun getArticles() {
-        viewModel.getTopHeadlinesByCountry("id")
+    private fun setupChipGroup() {
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+            val chip: Chip = binding.chipGroup.findViewById(group.checkedChipId)
+
+            when(chip.id) {
+                R.id.chip_topHeadlines -> getArticles(Constants.CHIP_TOP_HEADLINES)
+                R.id.chip_business -> getArticles(Constants.CHIP_BUSINESS)
+                R.id.chip_entertainment -> getArticles(Constants.CHIP_ENTERTAINMENT)
+                R.id.chip_technology -> getArticles(Constants.CHIP_TECHNOLOGY)
+            }
+
+            chip.let {
+                Toast.makeText(requireContext(), it.text, Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+    private fun getArticles(chip: String) {
+        viewModel.getTopHeadlines(chip, "id")
         viewModel.topHeadlines.observe(viewLifecycleOwner) {
             homeAdapter.setList(it)
         }
@@ -70,6 +92,7 @@ class HomeFragment : Fragment(), RvAdapterHome.Listener {
     }
 
     override fun onClick(article: Article) {
-        Toast.makeText(requireContext(), article.title, Toast.LENGTH_SHORT).show()
+        val action = HomeFragmentDirections.actionGlobalArticleSelectedFragment(article)
+        findNavController().navigate(action)
     }
 }
