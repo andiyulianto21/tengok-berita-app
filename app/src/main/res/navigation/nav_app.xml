@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.daylantern.tengokberita.ui.fragments.HomeFragment"
+        android:label="Tengok Berita"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
@@ -20,10 +21,12 @@
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.daylantern.tengokberita.BookmarkFragment"
+        android:label="Bookmark"
         tools:layout="@layout/fragment_bookmark" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.daylantern.tengokberita.SettingsFragment"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/articleSelectedFragment"
@@ -31,7 +34,7 @@
         tools:layout="@layout/fragment_article_selected">
         <argument
             android:name="article_selected"
-            app:argType="com.daylantern.tengokberita.network.Article" />
+            app:argType="com.daylantern.tengokberita.database.model.SavedArticle" />
     </fragment>
     <action android:id="@+id/action_global_articleSelectedFragment" app:destination="@id/articleSelectedFragment" />
 </navigation>

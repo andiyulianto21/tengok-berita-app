@@ -1,52 +1,35 @@
 package com.daylantern.tengokberita.viewmodels
 
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.daylantern.tengokberita.Constants
 import com.daylantern.tengokberita.network.Article
+import com.daylantern.tengokberita.network.NewsApi
+import com.daylantern.tengokberita.network.NewsResponse
+import com.daylantern.tengokberita.repositories.HeadlinesPagingSource
 import com.daylantern.tengokberita.repositories.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: Repository
-): ViewModel() {
+    private val newsApi: NewsApi
+) : ViewModel() {
 
-    private var _topHeadlines = MutableLiveData<List<Article>>()
-    val topHeadlines: LiveData<List<Article>> get() = _topHeadlines
-
-    fun getTopHeadlines(chipSelected: String? = null, countryCode: String) {
-        when(chipSelected) {
-            Constants.CHIP_TOP_HEADLINES -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val response = repository.getTopHeadlinesByCountry(countryCode)
-                    if(response.isSuccessful){
-                        _topHeadlines.postValue(response.body()?.articles)
-                    }
-                }
-            }
-            Constants.CHIP_BUSINESS -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val response = repository.getTopHeadlinesByCategory(countryCode, "business")
-                    if(response.isSuccessful){
-                        _topHeadlines.postValue(response.body()?.articles)
-                    }
-                }
-            }
-            Constants.CHIP_TECHNOLOGY -> {
-                viewModelScope.launch(Dispatchers.IO) {
-                    val response = repository.getTopHeadlinesByCategory(countryCode, "technology")
-                    if(response.isSuccessful){
-                        _topHeadlines.postValue(response.body()?.articles)
-                    }
-                }
-            }
-        }
-    }
+    val articlesList = Pager(PagingConfig(pageSize = Constants.PAGE_SIZE, prefetchDistance = 2, enablePlaceholders = false)) {
+        HeadlinesPagingSource(newsApi, "id")
+    }.flow.cachedIn(viewModelScope)
 
 }

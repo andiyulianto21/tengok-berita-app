@@ -5,30 +5,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.daylantern.tengokberita.util.Listener
 import com.daylantern.tengokberita.databinding.CardItemArticleBinding
 import com.daylantern.tengokberita.network.Article
 
 class RvAdapterHome: RecyclerView.Adapter<RvAdapterHome.ViewHolder>() {
 
-    private var articles = mutableListOf<Article>()
+    private var articles = emptyList<Article>()
     var listener: Listener? = null
 
-    fun setList(list: List<Article>) {
-        val diffUtil = DiffUtilCallback(list)
-        val diffResult = DiffUtil.calculateDiff(diffUtil)
+    fun setList(newList: List<Article>) {
+//        val diffUtil = DiffUtilCallback(newList)
+//        val diffResult = DiffUtil.calculateDiff(diffUtil)
 
-        articles.clear()
-        articles.addAll(list)
-        diffResult.dispatchUpdatesTo(this)
+        articles = newList
+        notifyDataSetChanged()
+//        diffResult.dispatchUpdatesTo(this)
     }
 
     inner class DiffUtilCallback(private val newList: List<Article>): DiffUtil.Callback() {
         override fun getOldListSize(): Int {
-            return articles.count()
+            return articles.size
         }
 
         override fun getNewListSize(): Int {
-            return newList.count()
+            return newList.size
         }
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -63,9 +64,5 @@ class RvAdapterHome: RecyclerView.Adapter<RvAdapterHome.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return articles.size
-    }
-
-    interface Listener {
-        fun onClick(article: Article)
     }
 }
