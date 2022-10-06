@@ -43,29 +43,25 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintBottom_toTopOf="@+id/tv_publishedAt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Title here" />
 
             <TextView
                 android:id="@+id/tv_publishedAt"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="13sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                tools:text="2021" />
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                tools:text="Xnews.com" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

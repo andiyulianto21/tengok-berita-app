@@ -7,12 +7,13 @@ import com.daylantern.tengokberita.network.Article
 import com.daylantern.tengokberita.network.NewsApi
 import retrofit2.HttpException
 import java.io.IOException
-import javax.inject.Inject
 
-class SearchPagingSource @Inject constructor(
+class HealthPagingSource(
     private val newsApi: NewsApi,
-    private val query: String
+    private val countryCode: String,
+    private val category: String?= null
 ): PagingSource<Int, Article>() {
+
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1) ?:
@@ -23,10 +24,11 @@ class SearchPagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
             val pageIndex = params.key ?: Constants.STARTING_PAGE_INDEX
-            val response = newsApi.searchNews(query, pageIndex).body()
+            val response = if(category != null) newsApi.getTopHeadlinesByCategory(countryCode, category, pageIndex)
+                else newsApi.getTopHeadlinesByCountry(countryCode, pageIndex)
             val responseData = mutableListOf<Article>()
-            val data = response?.articles ?: emptyList()
-            responseData.addAll(data)
+            val result = response.body()?.articles ?: emptyList()
+            responseData.addAll(result)
 
             LoadResult.Page(
                 data = responseData,

@@ -19,6 +19,7 @@ import com.daylantern.tengokberita.databinding.FragmentSearchBinding
 import com.daylantern.tengokberita.network.Article
 import com.daylantern.tengokberita.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,7 +57,7 @@ class SearchFragment : Fragment(R.layout.fragment_search){
 
     private fun getNews() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.searchNews()?.collect {
+            viewModel.searchNews()?.collectLatest {
                 searchAdapter.submitData(it)
             }
         }

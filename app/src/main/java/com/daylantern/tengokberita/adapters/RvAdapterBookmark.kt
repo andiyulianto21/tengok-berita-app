@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.daylantern.tengokberita.database.model.SavedArticle
 import com.daylantern.tengokberita.databinding.CardItemArticleBinding
+import com.daylantern.tengokberita.util.ConvertDateTime
+import com.daylantern.tengokberita.util.ConvertDateTime.toTimeAgo
 
 class RvAdapterBookmark: RecyclerView.Adapter<RvAdapterBookmark.ViewHolder>() {
 
@@ -24,7 +26,9 @@ class RvAdapterBookmark: RecyclerView.Adapter<RvAdapterBookmark.ViewHolder>() {
             binding.apply {
                 Glide.with(itemView).load(article.urlToImage).into(imgThumbnail)
                 tvTitle.text = article.title
-                tvPublishedAt.text = article.publishedAt
+                val convert = article.publishedAt?.let { ConvertDateTime.convertToLong(it) }
+                val result = convert?.toTimeAgo()
+                tvPublishedAt.text = "$result • "
                 itemView.setOnClickListener { listener?.onClick(article) }
             }
         }

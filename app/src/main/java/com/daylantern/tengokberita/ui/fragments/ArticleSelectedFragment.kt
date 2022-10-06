@@ -1,4 +1,4 @@
-package com.daylantern.tengokberita
+package com.daylantern.tengokberita.ui.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.daylantern.tengokberita.R
 import com.daylantern.tengokberita.database.model.SavedArticle
 import com.daylantern.tengokberita.databinding.FragmentArticleSelectedBinding
 import com.daylantern.tengokberita.viewmodels.ArticleSelectedViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

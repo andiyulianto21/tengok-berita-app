@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface SavedArticleDao {
 
     @Query("SELECT * FROM article ORDER BY savedAt DESC")
-    fun getSavedArticles(): LiveData<List<SavedArticle>>
+    fun getSavedArticles(): List<SavedArticle>
 
     @Query("SELECT EXISTS(SELECT * FROM article WHERE url = :url) ")
     fun getArticle(url: String): Boolean

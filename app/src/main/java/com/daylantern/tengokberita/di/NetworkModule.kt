@@ -1,8 +1,7 @@
 package com.daylantern.tengokberita.di
 
-import com.daylantern.tengokberita.Constants
+import com.daylantern.tengokberita.util.Constants
 import com.daylantern.tengokberita.network.NewsApi
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

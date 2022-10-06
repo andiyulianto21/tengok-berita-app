@@ -1,19 +1,16 @@
-package com.daylantern.tengokberita
+package com.daylantern.tengokberita.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.viewbinding.library.fragment.viewBinding
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.daylantern.tengokberita.R
 import com.daylantern.tengokberita.adapters.RvAdapterBookmark
 import com.daylantern.tengokberita.database.model.SavedArticle
 import com.daylantern.tengokberita.databinding.FragmentBookmarkBinding
-import com.daylantern.tengokberita.network.Article
 import com.daylantern.tengokberita.viewmodels.BookmarkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +33,7 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark), RvAdapterBookmark
             layoutManager = LinearLayoutManager(requireContext())
             adapter = rvAdapter
         }
-        viewModel.getList().observe(viewLifecycleOwner) {
+        viewModel.list.observe(viewLifecycleOwner) {
             rvAdapter.setList(it)
         }
     }

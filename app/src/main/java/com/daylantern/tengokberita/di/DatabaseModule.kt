@@ -2,7 +2,7 @@ package com.daylantern.tengokberita.di
 
 import android.content.Context
 import androidx.room.Room
-import com.daylantern.tengokberita.Constants
+import com.daylantern.tengokberita.util.Constants
 import com.daylantern.tengokberita.database.SavedArticleDao
 import com.daylantern.tengokberita.database.SavedArticleDb
 import com.daylantern.tengokberita.network.NewsApi

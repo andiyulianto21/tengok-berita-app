@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.daylantern.tengokberita.database.model.SavedArticle
 import com.daylantern.tengokberita.repositories.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,18 +16,18 @@ class BookmarkViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private lateinit var list: LiveData<List<SavedArticle>>
+
+    private var _list = MutableLiveData<List<SavedArticle>>()
+    val list: LiveData<List<SavedArticle>> get() = _list
 
     init {
         getSavedArticle()
     }
 
-    fun getList(): LiveData<List<SavedArticle>> {
-        return list
-    }
-
     private fun getSavedArticle(){
-        list = repository.getSavedArticles()
+        viewModelScope.launch(Dispatchers.IO) {
+            _list.postValue(repository.getSavedArticles())
+        }
     }
 
 }

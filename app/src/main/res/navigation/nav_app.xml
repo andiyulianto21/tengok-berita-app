@@ -20,21 +20,51 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/bookmarkFragment"
-        android:name="com.daylantern.tengokberita.BookmarkFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.BookmarkFragment"
         android:label="Bookmark"
         tools:layout="@layout/fragment_bookmark" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.daylantern.tengokberita.SettingsFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/articleSelectedFragment"
-        android:name="com.daylantern.tengokberita.ArticleSelectedFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.ArticleSelectedFragment"
         tools:layout="@layout/fragment_article_selected">
         <argument
             android:name="article_selected"
             app:argType="com.daylantern.tengokberita.database.model.SavedArticle" />
     </fragment>
     <action android:id="@+id/action_global_articleSelectedFragment" app:destination="@id/articleSelectedFragment" />
+    <fragment
+        android:id="@+id/topHeadlinesFragment"
+        android:name="com.daylantern.tengokberita.TopHeadlinesFragment"
+        android:label="fragment_top_headlines"
+        tools:layout="@layout/fragment_top_headlines" />
+    <fragment
+        android:id="@+id/healthFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.HealthFragment"
+        android:label="fragment_health"
+        tools:layout="@layout/fragment_health" />
+    <fragment
+        android:id="@+id/entertainmentFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.EntertainmentFragment"
+        android:label="fragment_entertainment"
+        tools:layout="@layout/fragment_entertainment" />
+    <fragment
+        android:id="@+id/businessFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.BusinessFragment"
+        android:label="fragment_business"
+        tools:layout="@layout/fragment_business" />
+    <fragment
+        android:id="@+id/scienceFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.ScienceFragment"
+        android:label="fragment_science"
+        tools:layout="@layout/fragment_science" />
+    <fragment
+        android:id="@+id/technologyFragment"
+        android:name="com.daylantern.tengokberita.ui.fragments.TechnologyFragment"
+        android:label="fragment_technology"
+        tools:layout="@layout/fragment_technology" />
 </navigation>

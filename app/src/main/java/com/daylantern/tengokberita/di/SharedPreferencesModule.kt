@@ -2,7 +2,7 @@ package com.daylantern.tengokberita.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.daylantern.tengokberita.Constants
+import com.daylantern.tengokberita.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +16,7 @@ object SharedPreferencesModule {
 
     @Provides
     @Singleton
-    fun provideSharedPref(@ApplicationContext context: Context): SharedPreferences = context.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+    fun provideSharedPref(@ApplicationContext context: Context): SharedPreferences = context.getSharedPreferences(
+        Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
 
 }
